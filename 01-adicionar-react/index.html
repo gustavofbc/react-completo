@@ -13,49 +13,51 @@
 </head>
 
 <body>
-  <div id="app"></div>
+  <div id="app-javascript">
+    <p>Total: <span id="total"></span></p>
+    <p>Preço: R$ <span id="preco"></span></p>
+    <button id="button">comprar</button>
+  </div>
+  <script type="application/javascript">
+    const total = document.getElementById('total');
+    const preco = document.getElementById('preco');
+    const button = document.getElementById('button');
+
+    let contador = 1;
+
+    function atualizarValores(contador) {
+      total.innerText = contador;
+      preco.innerText = contador * 250
+    }
+
+    atualizarValores(contador);
+
+    function handleClick() {
+      contador = contador + 1;
+      atualizarValores(contador)
+    }
+
+    button.addEventListener('click', handleClick);
+
+  </script>
+
+  <div id="app-react"></div>
 
   <script type="text/babel">
-
-    const Compras = () => {
-      const [contador, setContador] = React.useState(0);
-      console.log(contador);
-      function comprar() {
-        setContador(contador + 1);
-      }
+    const Comprar = () => {
+      const [contador, setContador] = React.useState(1);
 
       return (
         <div>
-          <button onClick={comprar}>Comprar</button>
           <p>Total: {contador}</p>
           <p>Preço: R$ {contador * 250}</p>
+          <button onClick={() => { setContador(contador + 1) }}>comprar</button>
         </div>
       )
     }
 
-    const Button = () => {
-      function handleClick(event) {
-        console.log(event.target.innerText)
-      }
-      return <button onClick={handleClick}>comprar</button>
-    }
+    ReactDOM.render(<Comprar />, document.getElementById('app-react'))
 
-    const Titulo = () => {
-      const numeroAleatorio = Math.random() * 1000
-      return <h1>Meu título {numeroAleatorio}</h1>
-    }
-
-    const App = () => {
-      return (
-        <div>Meu app
-          <Compras />
-          <Button />
-          <Titulo />
-        </div>
-      )
-    }
-
-    ReactDOM.render(<App />, document.getElementById('app'))
   </script>
 </body>
 
